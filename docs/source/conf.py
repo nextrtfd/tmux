@@ -2,7 +2,7 @@
 
 # -- Project information
 
-project = 'Emirates Project'
+project = 'Careem Pay API'
 copyright = '2024, Muayed'
 author = 'Muayed'
 
