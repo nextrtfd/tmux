@@ -1,186 +1,237 @@
-=======================================================
-Careem Pay Merchant Plugins - NodeJS API Documentation
-=======================================================
+===========================================
+Tmux - Terminal Multiplexer for Developers
+===========================================
 
-**Disclaimer:** This project is experimental and the APIs are not considered stable.
-
-The **Careem Pay Merchant Plugins** repository offers server-side code plugins to simplify integration with the **Careem Pay Merchant API**. Merchants can configure their credentials in an `.env` file and access CPay Merchant APIs with minimal additional code.
+**tmux** is a terminal multiplexer that allows users to manage multiple terminal sessions within a single window. Developers can split windows into panes, switch between them easily, and keep sessions running in the background. This makes it particularly useful for long-running processes, remote connections, and efficient terminal organization.
 
 ---------------------------
-Overview
+Installation
 ---------------------------
 
-The **Careem Pay Merchant Plugin** for NodeJS allows merchants to integrate with Careem Pay's payment services easily. By configuring environment credentials, merchants can perform various payment-related operations without extensive setup.
+tmux is available for most Unix-based systems. Use one of the following commands to install:
+
+- **macOS**:
+
+  .. code-block:: bash
+
+      brew install tmux
+
+- **Ubuntu/Debian**:
+
+  .. code-block:: bash
+
+      sudo apt-get update
+      sudo apt-get install tmux
+
+- **Fedora**:
+
+  .. code-block:: bash
+
+      sudo dnf install tmux
+
+After installation, you can start using tmux by typing `tmux` in your terminal.
 
 ---------------------------
-Prerequisites
+Basic Commands
 ---------------------------
 
-To test the API on localhost, you need to have:
+Here are some essential tmux commands to get started:
 
-- **NodeJS** (Latest LTS version recommended)
-- **NPM** or **Yarn** for package management
-- **Postman** to test endpoints
-- **Careem Pay Merchant Onboarding**:
-  - A registered merchant account on CPay.
-  - Your **Client ID** and **Client Secret** issued by CPay.
+- **Start a New Session**:
 
----------------------------
-Installation and Setup
----------------------------
+  .. code-block:: bash
 
-Follow the steps below to set up the project:
+      tmux new -s <session_name>
 
-1. **Clone the Repository**:
-   - Download or clone the source code from the repository.
+- **List All Sessions**:
 
-2. **Install Dependencies**:
-   - The repository contains the source code but does not include `node_modules`. At the root directory (where `index.js` is located), run either of the following commands:
+  .. code-block:: bash
 
-   .. code-block:: bash
+      tmux ls
 
-       npm install
+- **Attach to an Existing Session**:
 
-   or
+  .. code-block:: bash
 
-   .. code-block:: bash
+      tmux attach -t <session_name>
 
-       yarn
+- **Kill a Session**:
 
-3. **Configure Environment Variables**:
-   - Set up your `.env` file with the following variables:
+  .. code-block:: bash
 
-     - `CLIENT_ID`: Your Careem Pay Client ID.
-     - `CLIENT_SECRET`: Your Careem Pay Client Secret.
-     - Any other required API-specific configurations.
-
-4. **Start the Server**:
-   - To simulate the endpoint on localhost, use one of the following commands:
-
-   .. code-block:: bash
-
-       npm start
-
-   or
-
-   .. code-block:: bash
-
-       yarn start
-
-5. **Testing with Postman**:
-   - Use **Postman** to send requests to the endpoint and verify functionality.
+      tmux kill-session -t <session_name>
 
 ---------------------------
-API Endpoints
+Sessions, Windows, and Panes
 ---------------------------
 
-The plugin provides several endpoints for integrating with the Careem Pay Merchant API. Below is a general structure; refer to the plugin documentation for details on each endpoint.
+**tmux** organizes your workflow in a hierarchy: sessions contain windows, and windows can be split into panes. This makes it easy to structure your tasks and keep track of different processes.
 
-Authentication Endpoint
----------------------------
+Sessions
+-----------
 
-   **Endpoint:** `/auth`
-   
-   **Method:** `POST`
-   
-   **Description:** This endpoint authenticates the merchant using the client credentials provided in the `.env` file.
+- Start a session with a custom name:
 
-   - **Request Body**:
-     
-     - `client_id`: Your Careem Pay Client ID.
-     - `client_secret`: Your Careem Pay Client Secret.
-   
-   - **Response**:
-     
-     - `token`: Access token required for subsequent API calls.
-     - `expires_in`: Token expiration time.
+  .. code-block:: bash
 
-Payment Processing Endpoint
----------------------------
+      tmux new -s mysession
 
-   **Endpoint:** `/process-payment`
-   
-   **Method:** `POST`
-   
-   **Description:** Initiates a payment transaction for the merchant's order.
+- Detach from a session without stopping it:
 
-   - **Request Body**:
-     
-     - `amount`: The transaction amount.
-     - `currency`: Currency in which the payment is made.
-     - `payment_method`: Preferred payment method for the transaction.
-   
-   - **Response**:
-     
-     - `transaction_id`: Unique ID for the payment transaction.
-     - `status`: Status of the payment (e.g., `success`, `pending`, `failed`).
-     - `message`: Description or message about the transaction result.
+  - Press `Ctrl-b` followed by `d`
 
-Refund Endpoint
----------------------------
+- Attach to a session by name:
 
-   **Endpoint:** `/refund`
-   
-   **Method:** `POST`
-   
-   **Description:** Processes a refund for a previously completed transaction.
+  .. code-block:: bash
 
-   - **Request Body**:
-     
-     - `transaction_id`: The unique ID of the transaction to be refunded.
-     - `amount`: Amount to refund (if partial refund is supported).
-   
-   - **Response**:
-     
-     - `refund_id`: Unique ID for the refund transaction.
-     - `status`: Status of the refund (e.g., `processed`, `failed`).
-     - `message`: Description or message regarding the refund status.
+      tmux attach -t mysession
+
+Windows
+-----------
+
+Within a tmux session, you can create multiple windows.
+
+- **Create a New Window**:
+
+  - Press `Ctrl-b` followed by `c`
+
+- **Switch Between Windows**:
+
+  - Press `Ctrl-b` followed by the window number (e.g., `0`, `1`)
+
+- **Rename the Current Window**:
+
+  - Press `Ctrl-b` then `,`
+
+Panes
+-----------
+
+You can split windows into multiple panes to work on different tasks side-by-side.
+
+- **Split Vertically**:
+
+  - Press `Ctrl-b` then `%`
+
+- **Split Horizontally**:
+
+  - Press `Ctrl-b` then `"`
+
+- **Switch Between Panes**:
+
+  - Press `Ctrl-b` then an arrow key
+
+- **Resize Panes**:
+
+  - Press `Ctrl-b` then `:` and type `resize-pane -D` (or `-U`, `-L`, `-R` for down, up, left, or right)
 
 ---------------------------
-Running and Testing Locally
+Customizing tmux
 ---------------------------
 
-To test the plugin on your local machine:
+tmux can be customized extensively using a configuration file (`~/.tmux.conf`). Here are some popular customizations:
 
-1. Run the plugin using the start command:
+- **Change Prefix Key**: To avoid conflicts with `Ctrl-b`, you can set another prefix key.
 
-   .. code-block:: bash
+  .. code-block:: bash
 
-       npm start
+      set-option -g prefix C-a
+      unbind-key C-b
+      bind-key C-a send-prefix
 
-2. Open **Postman** and configure it to interact with the plugin’s endpoints. Use the authentication endpoint to retrieve an access token, and include this token in the headers of subsequent API requests.
+- **Enable Mouse Support**: Allows switching panes and scrolling with the mouse.
+
+  .. code-block:: bash
+
+      set -g mouse on
+
+- **Set Scrollback Buffer Size**: Control how many lines tmux will keep in its history.
+
+  .. code-block:: bash
+
+      set-option -g history-limit 10000
+
+- **Status Bar Customization**: Customize the appearance of the tmux status bar.
+
+  .. code-block:: bash
+
+      set-option -g status-bg colour235
+      set-option -g status-fg colour136
+      set-option -g status-interval 5
+
+After editing your `.tmux.conf`, reload it with:
+
+.. code-block:: bash
+
+    tmux source-file ~/.tmux.conf
 
 ---------------------------
-Error Handling
+Common tmux Commands Summary
 ---------------------------
 
-The API includes standard error codes to identify the issues merchants may encounter:
+Here’s a quick reference for some frequently used tmux commands:
 
-- **400 Bad Request**: The request was invalid, possibly due to missing or incorrect parameters.
-- **401 Unauthorized**: Authentication failure, either due to an invalid client ID, client secret, or expired token.
-- **403 Forbidden**: The merchant does not have permission to access the requested resource.
-- **500 Internal Server Error**: An error occurred on the server side. Contact support if the issue persists.
+- **Prefix Key**: `Ctrl-b`
+- **New Session**: `tmux new -s <name>`
+- **List Sessions**: `tmux ls`
+- **Rename Session**: `Ctrl-b` then `$`
+- **New Window**: `Ctrl-b` then `c`
+- **Rename Window**: `Ctrl-b` then `,`
+- **Split Pane Vertically**: `Ctrl-b` then `%`
+- **Split Pane Horizontally**: `Ctrl-b` then `"`
+- **Kill Pane**: `Ctrl-b` then `x`
+- **Kill Session**: `tmux kill-session -t <name>`
 
 ---------------------------
-Contribution Guidelines
+Advanced Features
 ---------------------------
 
-If you would like to improve this plugin:
+Scripting tmux
+-----------
 
-1. **Fork the Repository**:
-   - Clone the repository to make your modifications.
+You can script tmux to automate tasks. For example, create a script to set up a development environment:
 
-2. **Follow Contribution Guidelines**:
-   - Adhere to the contribution standards outlined in the repository documentation.
-   - Test your changes locally before submitting a pull request.
+.. code-block:: bash
 
-3. **Submit a Pull Request**:
-   - Provide a detailed description of your changes, including any new features or bug fixes.
+    #!/bin/bash
+    tmux new-session -d -s dev
+    tmux rename-window -t dev:0 'Editor'
+    tmux send-keys -t dev 'vim' C-m
+    tmux new-window -t dev -n 'Server'
+    tmux send-keys -t dev 'npm start' C-m
+    tmux split-window -h
+    tmux send-keys -t dev 'htop' C-m
+    tmux attach -t dev
+
+Sharing Sessions
+-----------
+
+tmux allows sharing sessions with others, which is useful for remote pair programming or support:
+
+- **Share a Session**: Ensure both users have access to the machine and then run `tmux attach -t <session_name>`.
+
+---------------------------
+Troubleshooting
+---------------------------
+
+Here are some common issues and solutions:
+
+- **Problem**: tmux not installed.
+  - **Solution**: Install tmux via package manager (`brew`, `apt`, `dnf`).
+
+- **Problem**: tmux is not reading the `.tmux.conf` file.
+  - **Solution**: Ensure `.tmux.conf` is in the home directory and reload it with `tmux source-file ~/.tmux.conf`.
+
+- **Problem**: Commands not working as expected.
+  - **Solution**: Check for command conflicts and ensure that any custom prefix key settings are updated.
 
 ---------------------------
 Conclusion
 ---------------------------
 
-The **Careem Pay Merchant Plugin** for NodeJS simplifies integration with Careem Pay's API by offering ready-to-use endpoints for common payment functions. With minimal setup, merchants can integrate essential payment services into their applications securely and efficiently.
+tmux is an invaluable tool for developers, allowing for advanced terminal management, session persistence, and workspace organization. With a bit of configuration, tmux can significantly streamline workflows and enhance productivity in command-line environments.
 
-=======================================================
+For more information, check the official tmux manual:
+
+.. code-block:: bash
+
+    man tmux
