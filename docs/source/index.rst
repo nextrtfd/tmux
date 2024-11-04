@@ -1,187 +1,183 @@
-===============================
-API Souq by Emirates NBD
-===============================
+=======================================================
+Careem Pay Merchant Plugins - NodeJS API Documentation
+=======================================================
 
-**API Souq** by `Emirates NBD <https://www.emiratesnbd.com/en>`_ is a comprehensive open banking API platform that offers a suite of Application Programming Interfaces (APIs) for developers, businesses, and fintechs. Through API Souq, Emirates NBD provides access to various banking services, enabling seamless integration of financial services into third-party applications.
+**Disclaimer:** This project is experimental and the APIs are not considered stable.
+
+The **Careem Pay Merchant Plugins** repository offers server-side code plugins to simplify integration with the **Careem Pay Merchant API**. Merchants can configure their credentials in an `.env` file and access CPay Merchant APIs with minimal additional code.
 
 ---------------------------
 Overview
 ---------------------------
 
-API Souq was created to support innovation in the financial sector by giving developers and businesses easy access to Emirates NBD's banking services. By leveraging open banking principles, API Souq facilitates the development of digital financial solutions that can enhance the user experience for customers across the UAE.
-
-**Key Features of API Souq:**
-
-- **Banking APIs:** A wide range of APIs covering multiple services, such as account information, payments, and money transfers.
-- **Developer-friendly Platform:** API Souq is designed with developers in mind, offering comprehensive documentation, sandbox environments, and support.
-- **Security and Compliance:** Emirates NBD ensures that all APIs meet strict security and compliance standards to protect user data and adhere to UAE financial regulations.
-- **Open Banking Innovations:** API Souq encourages collaboration with fintechs and startups, enabling them to create value-added services that can be integrated into various applications.
+The **Careem Pay Merchant Plugin** for NodeJS allows merchants to integrate with Careem Pay's payment services easily. By configuring environment credentials, merchants can perform various payment-related operations without extensive setup.
 
 ---------------------------
-API Categories
+Prerequisites
 ---------------------------
 
-API Souq offers a broad array of APIs, organized into the following categories:
+To test the API on localhost, you need to have:
 
-1. **Accounts API**
-   - Provides access to account-related information, such as account balance, transaction history, and statements.
-   - Allows third-party applications to access real-time account information with customer consent.
-
-2. **Payments API**
-   - Facilitates payment processing, including domestic transfers, bill payments, and international money transfers.
-   - Enables seamless integration of payment solutions into e-commerce platforms and apps.
-
-3. **Authentication API**
-   - Provides secure authentication for customers, ensuring that third-party applications can access data only after proper authorization.
-   - Uses strong authentication methods to ensure secure and seamless user access.
-
-4. **Cards API**
-   - Offers access to card-related information, such as available credit, transaction history, and reward points.
-   - Can be integrated into financial planning and budgeting applications.
-
-5. **Loans and Financing API**
-   - Allows developers to access loan-related information, enabling applications that offer loan management and status tracking.
-   - Useful for personal finance applications and digital lending platforms.
+- **NodeJS** (Latest LTS version recommended)
+- **NPM** or **Yarn** for package management
+- **Postman** to test endpoints
+- **Careem Pay Merchant Onboarding**:
+  - A registered merchant account on CPay.
+  - Your **Client ID** and **Client Secret** issued by CPay.
 
 ---------------------------
-Benefits of API Souq
+Installation and Setup
 ---------------------------
 
-API Souq by Emirates NBD provides significant benefits to businesses, developers, and end-users:
+Follow the steps below to set up the project:
 
-- **Enhanced Customer Experience:** By integrating Emirates NBD's banking services into their applications, businesses can provide a more seamless banking experience to customers.
-- **Innovation Support:** API Souq encourages the development of new financial products and services, fostering innovation in the fintech space.
-- **Time and Cost Efficiency:** Businesses can reduce development time and costs by leveraging existing APIs rather than building their own banking infrastructure.
-- **Secure and Compliant:** Emirates NBD ensures that all data shared through API Souq complies with UAE regulations and follows international security standards.
+1. **Clone the Repository**:
+   - Download or clone the source code from the repository.
 
----------------------------
-Getting Started with API Souq
----------------------------
+2. **Install Dependencies**:
+   - The repository contains the source code but does not include `node_modules`. At the root directory (where `index.js` is located), run either of the following commands:
 
-To start using API Souq, follow these steps:
+   .. code-block:: bash
 
-1. **Register**: Sign up on the API Souq developer portal to gain access to documentation and sandbox environments.
-2. **Explore Documentation**: Review API Souq's comprehensive documentation to understand the integration processes and API functions.
-3. **Test in Sandbox**: Use the sandbox environment to test your applications before going live.
-4. **Go Live**: After testing and validation, apply for production access and integrate Emirates NBD services into your live application.
+       npm install
 
-===============================
-SouqAPI PHP Documentation
-===============================
+   or
 
-The **SouqAPI** PHP class `SouqAPIResult` is a structured response handler used in the **API Souq** platform by Emirates NBD. It processes API responses, checks for errors, and retrieves data and messages associated with API calls.
+   .. code-block:: bash
 
----------------------------
-Class Properties
----------------------------
+       yarn
 
-- **status (int)**  
-  - Default: `200`
-  - Holds the HTTP status code of the API response.
+3. **Configure Environment Variables**:
+   - Set up your `.env` file with the following variables:
 
-- **message (string)**  
-  - Stores a message from the API response, often indicating the success or error state of the request.
+     - `CLIENT_ID`: Your Careem Pay Client ID.
+     - `CLIENT_SECRET`: Your Careem Pay Client Secret.
+     - Any other required API-specific configurations.
 
-- **data (mixed)**  
-  - Contains the actual data payload returned by the API, if available.
+4. **Start the Server**:
+   - To simulate the endpoint on localhost, use one of the following commands:
 
-- **callResult (array)**  
-  - Holds the entire response array returned by the API, including metadata and data fields.
+   .. code-block:: bash
 
-- **Const MESSAGE (string)**  
-  - Constant for the message key, set as `'message'`.
+       npm start
+
+   or
+
+   .. code-block:: bash
+
+       yarn start
+
+5. **Testing with Postman**:
+   - Use **Postman** to send requests to the endpoint and verify functionality.
 
 ---------------------------
-Class Methods
+API Endpoints
 ---------------------------
 
-The `Souq API Result` class includes several methods to manage and interpret the API response.
+The plugin provides several endpoints for integrating with the Careem Pay Merchant API. Below is a general structure; refer to the plugin documentation for details on each endpoint.
 
-.. _construct:
-    - **Parameters:**
-        - `$response_code` (int|string): HTTP response code for the API request.
-        - `$CallResult` (array): The complete API response array, including metadata and data fields.
-    - **Function:** Initializes the class properties based on the API response. The `$status` is set according to `$response_code`, with a default of `500` if invalid. The method checks for `data` and `message` in `$CallResult`.
+### Authentication Endpoint
 
-.. _getStatus:
+   **Endpoint:** `/auth`
+   
+   **Method:** `POST`
+   
+   **Description:** This endpoint authenticates the merchant using the client credentials provided in the `.env` file.
 
-getStatus()
-    - **Return Type:** `int`
-    - **Description:** Returns the HTTP status code of the API response.
+   - **Request Body**:
+     
+     - `client_id`: Your Careem Pay Client ID.
+     - `client_secret`: Your Careem Pay Client Secret.
+   
+   - **Response**:
+     
+     - `token`: Access token required for subsequent API calls.
+     - `expires_in`: Token expiration time.
 
-.. _isResponseOK:
+### Payment Processing Endpoint
 
-isResponseOK()
-    - **Return Type:** `bool`
-    - **Description:** Checks if the response status is one of the successful codes (`200`, `201`, or `202`). Returns `true` for success, otherwise `false`.
+   **Endpoint:** `/process-payment`
+   
+   **Method:** `POST`
+   
+   **Description:** Initiates a payment transaction for the merchant's order.
 
-.. _isAuthenticationFailed:
+   - **Request Body**:
+     
+     - `amount`: The transaction amount.
+     - `currency`: Currency in which the payment is made.
+     - `payment_method`: Preferred payment method for the transaction.
+   
+   - **Response**:
+     
+     - `transaction_id`: Unique ID for the payment transaction.
+     - `status`: Status of the payment (e.g., `success`, `pending`, `failed`).
+     - `message`: Description or message about the transaction result.
 
-isAuthenticationFailed()
-    - **Return Type:** `bool`
-    - **Description:** Checks if the response status is `403`, indicating forbidden access or authentication failure.
+### Refund Endpoint
 
-.. _isExpiredTokenResponse:
+   **Endpoint:** `/refund`
+   
+   **Method:** `POST`
+   
+   **Description:** Processes a refund for a previously completed transaction.
 
-isExpiredTokenResponse()
-    - **Return Type:** `bool`
-    - **Description:** Checks if the response status is `401`, suggesting that the access token used in the request has expired.
+   - **Request Body**:
+     
+     - `transaction_id`: The unique ID of the transaction to be refunded.
+     - `amount`: Amount to refund (if partial refund is supported).
+   
+   - **Response**:
+     
+     - `refund_id`: Unique ID for the refund transaction.
+     - `status`: Status of the refund (e.g., `processed`, `failed`).
+     - `message`: Description or message regarding the refund status.
 
-.. _getMessage:
+---------------------------
+Running and Testing Locally
+---------------------------
 
-getMessage()
-    - **Return Type:** `string`
-    - **Description:** Retrieves the message from the API response metadata if available. Useful for debugging or providing user feedback.
+To test the plugin on your local machine:
 
-.. _getData:
+1. Run the plugin using the start command:
 
-getData()
-    - **Return Type:** `mixed`
-    - **Description:** Retrieves the data payload from the API response. If no data exists, it returns an empty string.
+   .. code-block:: bash
 
-.. _getCallResult:
+       npm start
 
-getCallResult()
-    - **Return Type:** `array`
-    - **Description:** Returns the complete response array from the API, including both metadata and data fields.
+2. Open **Postman** and configure it to interact with the plugin’s endpoints. Use the authentication endpoint to retrieve an access token, and include this token in the headers of subsequent API requests.
 
-===============================
-Souq API Result Usage Example
-===============================
+---------------------------
+Error Handling
+---------------------------
 
-The following example demonstrates how to create a `SouqAPIResult` instance and access various response details:
+The API includes standard error codes to identify the issues merchants may encounter:
 
-.. code-block:: php
+- **400 Bad Request**: The request was invalid, possibly due to missing or incorrect parameters.
+- **401 Unauthorized**: Authentication failure, either due to an invalid client ID, client secret, or expired token.
+- **403 Forbidden**: The merchant does not have permission to access the requested resource.
+- **500 Internal Server Error**: An error occurred on the server side. Contact support if the issue persists.
 
-    use SouqAPI\SouqAPIResult;
+---------------------------
+Contribution Guidelines
+---------------------------
 
-    // Sample API response
-    $response_code = 200;
-    $callResult = [
-        'data' => ['id' => 123, 'name' => 'Sample Item'],
-        'meta' => ['message' => 'Request successful']
-    ];
+If you would like to improve this plugin:
 
-    // Create a new SouqAPIResult instance
-    $souqResult = new SouqAPIResult($response_code, $callResult);
+1. **Fork the Repository**:
+   - Clone the repository to make your modifications.
 
-    // Check if the response is successful
-    if ($souqResult->isResponseOK()) {
-        echo "Status: " . $souqResult->getStatus() . "\n";
-        echo "Message: " . $souqResult->getMessage() . "\n";
-        echo "Data: ";
-        print_r($souqResult->getData());
-    } else {
-        echo "Error: " . $souqResult->getMessage();
-    }
+2. **Follow Contribution Guidelines**:
+   - Adhere to the contribution standards outlined in the repository documentation.
+   - Test your changes locally before submitting a pull request.
 
-    // Check for specific error codes
-    if ($souqResult->isAuthenticationFailed()) {
-        echo "Authentication failed.";
-    } elseif ($souqResult->isExpiredTokenResponse()) {
-        echo "Token expired. Please re-authenticate.";
-    }
+3. **Submit a Pull Request**:
+   - Provide a detailed description of your changes, including any new features or bug fixes.
 
-===============================
+---------------------------
+Conclusion
+---------------------------
 
-API Souq by Emirates NBD is a robust platform that empowers developers and businesses to create innovative financial solutions. By providing secure and accessible banking APIs, Emirates NBD supports the growth of digital financial services in the UAE, enabling fintechs and businesses to offer a seamless and integrated banking experience.
+The **Careem Pay Merchant Plugin** for NodeJS simplifies integration with Careem Pay's API by offering ready-to-use endpoints for common payment functions. With minimal setup, merchants can integrate essential payment services into their applications securely and efficiently.
+
+=======================================================
