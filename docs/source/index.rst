@@ -76,7 +76,8 @@ API Endpoints
 
 The plugin provides several endpoints for integrating with the Careem Pay Merchant API. Below is a general structure; refer to the plugin documentation for details on each endpoint.
 
-### Authentication Endpoint
+Authentication Endpoint
+---------------------------
 
    **Endpoint:** `/auth`
    
@@ -94,7 +95,8 @@ The plugin provides several endpoints for integrating with the Careem Pay Mercha
      - `token`: Access token required for subsequent API calls.
      - `expires_in`: Token expiration time.
 
-### Payment Processing Endpoint
+Payment Processing Endpoint
+---------------------------
 
    **Endpoint:** `/process-payment`
    
@@ -114,7 +116,8 @@ The plugin provides several endpoints for integrating with the Careem Pay Mercha
      - `status`: Status of the payment (e.g., `success`, `pending`, `failed`).
      - `message`: Description or message about the transaction result.
 
-### Refund Endpoint
+Refund Endpoint
+---------------------------
 
    **Endpoint:** `/refund`
    
